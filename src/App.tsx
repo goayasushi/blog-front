@@ -3,6 +3,7 @@ import parse, { DOMNode, Element as DomElement } from "html-react-parser";
 
 import "./App.css";
 import { client } from "./libs/client";
+import { Header } from "./components/organisms/Header";
 
 type Blog = {
   category: {
@@ -57,6 +58,7 @@ function App() {
 
   return (
     <div className="App">
+      <Header />
       <p>疎通確認</p>
       {blogs.map((blog) => (
         <div key={blog.id}>
