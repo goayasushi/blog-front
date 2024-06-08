@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import {
   Box,
   Flex,
@@ -73,7 +73,14 @@ export const Header: FC = () => {
   }, []);
 
   return (
-    <Box bg="white" px={4} boxShadow="md">
+    <Box
+      bg="white"
+      px={4}
+      boxShadow="md"
+      position="fixed"
+      width="100%"
+      zIndex={1}
+    >
       <Flex h={16} alignItems="center" justifyContent="space-between">
         <HStack spacing={8} alignItems="center">
           <Box>
