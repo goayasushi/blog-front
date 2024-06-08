@@ -5,6 +5,7 @@ import { CategoryList } from "../components/pages/CategoryList";
 import { Contact } from "../components/pages/Contact";
 import { PrivacyPolicy } from "../components/pages/PrivacyPolicy";
 import { Profile } from "../components/pages/Profile";
+import { Page404 } from "../components/pages/Page404";
 
 export const router = createBrowserRouter([
   {
@@ -34,5 +35,9 @@ export const router = createBrowserRouter([
   {
     path: "/profile",
     element: <Profile />,
+  },
+  {
+    path: "*",
+    element: <Page404 />,
   },
 ]);
