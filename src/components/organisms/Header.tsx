@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import {
   Box,
   Flex,
@@ -21,10 +21,12 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import { NavLink } from "../atoms/NavLick";
+import { client } from "../../libs/client";
+import { CategoryType } from "../../types/Category ";
 
 const Links = ["プロフィール", "カテゴリー", "お問い合わせ"];
 
-export const Header: React.FC = () => {
+export const Header: FC = () => {
   const {
     isOpen: isCategoryOpen,
     onOpen: onCategoryOpen,
@@ -35,7 +37,21 @@ export const Header: React.FC = () => {
     onOpen: onDrawerOpen,
     onClose: onDrawerClose,
   } = useDisclosure();
-  const btnRef = React.useRef<HTMLButtonElement>(null);
+  const btnRef = useRef<HTMLButtonElement>(null);
+
+  // カテゴリー取得
+  const [categories, setCategories] = useState<Array<CategoryType>>([]);
+  useEffect(() => {
+    client
+      .get({
+        endpoint: "categories",
+      })
+      .then((res) => {
+        console.log(res.contents);
+        setCategories(res.contents);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <Box bg="white" px={4} boxShadow="md">
@@ -64,9 +80,9 @@ export const Header: React.FC = () => {
                 onMouseEnter={onCategoryOpen}
                 onMouseLeave={onCategoryClose}
               >
-                <MenuItem>サブカテゴリー1</MenuItem>
-                <MenuItem>サブカテゴリー2</MenuItem>
-                <MenuItem>サブカテゴリー3</MenuItem>
+                {categories.map((category) => (
+                  <MenuItem key={category.id}>{category.name}</MenuItem>
+                ))}
               </MenuList>
             </Menu>
             <NavLink>{Links[2]}</NavLink>
