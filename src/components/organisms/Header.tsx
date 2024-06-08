@@ -3,7 +3,6 @@ import {
   Box,
   Flex,
   HStack,
-  Link,
   IconButton,
   useDisclosure,
   Stack,
@@ -20,11 +19,31 @@ import {
   DrawerBody,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import { Link } from "react-router-dom";
+
 import { NavLink } from "../atoms/NavLick";
 import { client } from "../../libs/client";
 import { CategoryType } from "../../types/Category";
 
-const Links = ["プロフィール", "カテゴリー", "お問い合わせ"];
+const HeaderLinks = [
+  {
+    path: "profile",
+    children: "プロフィール",
+  },
+  {
+    path: "categories",
+    children: "カテゴリー",
+  },
+  { path: "contact", children: "お問い合わせ" },
+];
+
+const HamburgerLinks = [
+  {
+    path: "profile",
+    children: "プロフィール",
+  },
+  { path: "contact", children: "お問い合わせ" },
+];
 
 export const Header: FC = () => {
   const {
@@ -63,17 +82,18 @@ export const Header: FC = () => {
         </HStack>
         <HStack spacing={8} alignItems="center">
           <HStack as="nav" spacing={4} display={{ base: "none", md: "flex" }}>
-            <NavLink>{Links[0]}</NavLink>
+            <NavLink path={HeaderLinks[0].path}>
+              {HeaderLinks[0].children}
+            </NavLink>
 
             <Menu isOpen={isCategoryOpen} offset={[0, 0]}>
               <MenuButton
-                as={Link}
                 _hover={{ textDecoration: "none" }}
                 onMouseEnter={onCategoryOpen}
                 onMouseLeave={onCategoryClose}
                 textDecoration="none"
               >
-                {Links[1]}
+                {HeaderLinks[1].children}
                 <ChevronDownIcon />
               </MenuButton>
               <MenuList
@@ -81,11 +101,19 @@ export const Header: FC = () => {
                 onMouseLeave={onCategoryClose}
               >
                 {categories.map((category) => (
-                  <MenuItem key={category.id}>{category.name}</MenuItem>
+                  <MenuItem
+                    as={Link}
+                    to={`/category/${category.id}`}
+                    key={category.id}
+                  >
+                    {category.name}
+                  </MenuItem>
                 ))}
               </MenuList>
             </Menu>
-            <NavLink>{Links[2]}</NavLink>
+            <NavLink path={HeaderLinks[2].path}>
+              {HeaderLinks[2].children}
+            </NavLink>
           </HStack>
         </HStack>
         <IconButton
@@ -107,11 +135,13 @@ export const Header: FC = () => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>メニュー</DrawerHeader>
+          <DrawerHeader>Menu</DrawerHeader>
           <DrawerBody>
             <Stack as="nav" spacing={4}>
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+              {HamburgerLinks.map((link) => (
+                <NavLink path={link.path} key={link.path}>
+                  {link.children}
+                </NavLink>
               ))}
             </Stack>
           </DrawerBody>

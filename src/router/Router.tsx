@@ -21,7 +21,7 @@ export const router = createBrowserRouter([
     element: <Article />,
   },
   {
-    path: "/categories",
+    path: "/category/:id",
     element: <CategoryList />,
   },
   {

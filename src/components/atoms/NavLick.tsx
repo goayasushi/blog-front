@@ -1,14 +1,19 @@
-import { Link } from "@chakra-ui/react";
+import { Link as ChakraLink } from "@chakra-ui/react";
+
 import { FC, ReactNode } from "react";
+import { Link } from "react-router-dom";
 
 type Props = {
   children: ReactNode;
+  path: string;
 };
 
 export const NavLink: FC<Props> = (props) => {
-  const { children } = props;
+  const { children, path } = props;
   return (
-    <Link
+    <ChakraLink
+      as={Link}
+      to={`/${path}`}
       px={2}
       py={1}
       rounded={"md"}
@@ -16,9 +21,8 @@ export const NavLink: FC<Props> = (props) => {
         textDecoration: "none",
         bg: "gray.200",
       }}
-      href={"#"}
     >
       {children}
-    </Link>
+    </ChakraLink>
   );
 };
