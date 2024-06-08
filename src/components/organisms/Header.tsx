@@ -22,7 +22,7 @@ import {
 import { HamburgerIcon, CloseIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import { NavLink } from "../atoms/NavLick";
 import { client } from "../../libs/client";
-import { CategoryType } from "../../types/Category ";
+import { CategoryType } from "../../types/Category";
 
 const Links = ["プロフィール", "カテゴリー", "お問い合わせ"];
 
