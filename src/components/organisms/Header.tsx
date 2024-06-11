@@ -81,10 +81,13 @@ export const Header: FC = () => {
       width="100%"
       zIndex={1}
     >
-      <Flex h={16} alignItems="center" justifyContent="space-between">
+      <Flex h={20} alignItems="center" justifyContent="space-between">
         <HStack spacing={8} alignItems="center">
           <Box>
-            <Image src="/path-to-your-logo.png" alt="Logo" height="50px" />
+            <Image src="/logo-main.png" alt="Logo" height="80px" />
+          </Box>
+          <Box mt={3}>
+            <Image src="/logo-sub.png" alt="Logo" height="35px" />
           </Box>
         </HStack>
         <HStack spacing={8} alignItems="center">
