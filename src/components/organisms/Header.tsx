@@ -17,6 +17,7 @@ import {
   DrawerCloseButton,
   DrawerHeader,
   DrawerBody,
+  Link as ChakraLink,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
@@ -84,7 +85,9 @@ export const Header: FC = () => {
       <Flex h={20} alignItems="center" justifyContent="space-between">
         <HStack spacing={8} alignItems="center">
           <Box>
-            <Image src="/logo-main.png" alt="Logo" height="80px" />
+            <ChakraLink as={Link} to="/">
+              <Image src="/logo-main.png" alt="Logo" height="80px" />
+            </ChakraLink>
           </Box>
           <Box mt={3}>
             <Image src="/logo-sub.png" alt="Logo" height="35px" />
