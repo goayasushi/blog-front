@@ -82,15 +82,31 @@ export const Header: FC = () => {
       width="100%"
       zIndex={1}
     >
-      <Flex h={20} alignItems="center" justifyContent="space-between">
+      <Flex alignItems="center" justifyContent="space-between">
         <HStack spacing={8} alignItems="center">
           <Box>
             <ChakraLink as={Link} to="/">
-              <Image src="/logo-main.png" alt="Logo" height="80px" />
+              <Image
+                display={{ base: "none", lg: "block" }}
+                src="/logo-main.png"
+                alt="Logo"
+                height="80px"
+              />
+              <Image
+                display={{ base: "block", lg: "none" }}
+                src="/logo-main-sp.png"
+                alt="Logo"
+                height="80px"
+              />
             </ChakraLink>
           </Box>
           <Box mt={3}>
-            <Image src="/logo-sub.png" alt="Logo" height="35px" />
+            <Image
+              display={{ base: "none", lg: "block" }}
+              src="/logo-sub.png"
+              alt="Logo"
+              height="35px"
+            />
           </Box>
         </HStack>
         <HStack spacing={8} alignItems="center">
