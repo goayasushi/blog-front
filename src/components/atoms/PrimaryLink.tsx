@@ -17,6 +17,7 @@ export const PrimaryLink: FC<Props> = (props) => {
       _hover={{
         textDecoration: "none",
       }}
+      fontSize={{ base: "2xs", md: "lg" }}
     >
       {children}
     </ChakraLink>

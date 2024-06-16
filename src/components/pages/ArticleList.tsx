@@ -2,7 +2,7 @@ import { FC, memo, useEffect, useState } from "react";
 import { Header } from "../organisms/Header";
 import { client } from "../../libs/client";
 import parse, { DOMNode, Element as DomElement } from "html-react-parser";
-import { Footer } from "../organisms/Footer ";
+import { Footer } from "../organisms/Footer";
 
 type Blog = {
   category: {

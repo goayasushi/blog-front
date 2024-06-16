@@ -13,7 +13,7 @@ export const Footer: FC = () => {
           <Divider orientation="vertical" height="20px" mx={2} />
           <PrimaryLink path="/contact"> 問い合わせ</PrimaryLink>
         </Flex>
-        <Text textAlign="center" mt={4}>
+        <Text textAlign="center" mt={4} fontSize={{ base: "2xs", md: "lg" }}>
           © ヨワケン.
         </Text>
       </Box>
