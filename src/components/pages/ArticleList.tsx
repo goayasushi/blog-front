@@ -2,6 +2,7 @@ import { FC, memo, useEffect, useState } from "react";
 import { Header } from "../organisms/Header";
 import { client } from "../../libs/client";
 import parse, { DOMNode, Element as DomElement } from "html-react-parser";
+import { Footer } from "../organisms/Footer";
 
 type Blog = {
   category: {
@@ -66,6 +67,7 @@ export const ArticleList: FC = memo(() => {
           <div>{parse(blog.content, { replace: transform })}</div>
         </div>
       ))}
+      <Footer />
     </>
   );
 });
