@@ -24,7 +24,7 @@ import { Link } from "react-router-dom";
 
 import { NavLink } from "../atoms/NavLick";
 import { client } from "../../libs/client";
-import { CategoryType } from "../../types/Category";
+import { Category } from "../../types/category";
 
 const HeaderLinks = [
   {
@@ -60,7 +60,7 @@ export const Header: FC = () => {
   const btnRef = useRef<HTMLButtonElement>(null);
 
   // カテゴリー取得
-  const [categories, setCategories] = useState<Array<CategoryType>>([]);
+  const [categories, setCategories] = useState<Array<Category>>([]);
   useEffect(() => {
     client
       .get({
