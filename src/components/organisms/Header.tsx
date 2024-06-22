@@ -78,7 +78,8 @@ export const Header: FC = () => {
       bg="white"
       px={4}
       py={4}
-      boxShadow="md"
+      borderBottom="1px"
+      borderBottomColor="gray.400"
       position="fixed"
       width="100%"
       zIndex={1}
