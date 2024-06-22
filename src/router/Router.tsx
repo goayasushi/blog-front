@@ -1,4 +1,5 @@
 import { Navigate, createBrowserRouter } from "react-router-dom";
+
 import { ArticleList } from "../components/pages/ArticleList";
 import { Article } from "../components/pages/Article";
 import { CategoryList } from "../components/pages/CategoryList";
@@ -6,6 +7,7 @@ import { Contact } from "../components/pages/Contact";
 import { PrivacyPolicy } from "../components/pages/PrivacyPolicy";
 import { Profile } from "../components/pages/Profile";
 import { Page404 } from "../components/pages/Page404";
+import { HeaderLayout } from "../components/templates/PageLayout";
 
 export const router = createBrowserRouter([
   {
@@ -13,28 +15,34 @@ export const router = createBrowserRouter([
     element: <Navigate to="/articles" replace />,
   },
   {
-    path: "/articles",
-    element: <ArticleList />,
-  },
-  {
-    path: "/article/:id",
-    element: <Article />,
-  },
-  {
-    path: "/category/:id",
-    element: <CategoryList />,
-  },
-  {
-    path: "/contact",
-    element: <Contact />,
-  },
-  {
-    path: "/privacy-policy",
-    element: <PrivacyPolicy />,
-  },
-  {
-    path: "/profile",
-    element: <Profile />,
+    path: "/",
+    element: <HeaderLayout />,
+    children: [
+      {
+        path: "/articles",
+        element: <ArticleList />,
+      },
+      {
+        path: "/article/:id",
+        element: <Article />,
+      },
+      {
+        path: "/category/:id",
+        element: <CategoryList />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+      {
+        path: "/privacy-policy",
+        element: <PrivacyPolicy />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
+      },
+    ],
   },
   {
     path: "*",
