@@ -1,17 +1,6 @@
 import { FC, memo, useEffect, useState } from "react";
-import { Header } from "../organisms/Header";
 import { client } from "../../libs/client";
-import parse, { DOMNode, Element as DomElement } from "html-react-parser";
-import { Footer } from "../organisms/Footer";
-import {
-  Box,
-  Grid,
-  GridItem,
-  Image,
-  Link,
-  SimpleGrid,
-  Text,
-} from "@chakra-ui/react";
+import { Box, GridItem, Image, Link, SimpleGrid, Text } from "@chakra-ui/react";
 import { Article } from "../../types/article";
 
 export const ArticleList: FC = memo(() => {
