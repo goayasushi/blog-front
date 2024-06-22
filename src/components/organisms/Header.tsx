@@ -10,7 +10,6 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  Image,
   Drawer,
   DrawerOverlay,
   DrawerContent,
@@ -18,6 +17,7 @@ import {
   DrawerHeader,
   DrawerBody,
   Link as ChakraLink,
+  Heading,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
@@ -77,37 +77,19 @@ export const Header: FC = () => {
     <Box
       bg="white"
       px={4}
+      py={4}
       boxShadow="md"
       position="fixed"
       width="100%"
       zIndex={1}
     >
       <Flex alignItems="center" justifyContent="space-between">
-        <HStack spacing={8} alignItems="center">
-          <Box>
-            <ChakraLink as={Link} to="/">
-              <Image
-                display={{ base: "none", lg: "block" }}
-                src="/logo-main.png"
-                alt="Logo"
-                height="80px"
-              />
-              <Image
-                display={{ base: "block", lg: "none" }}
-                src="/logo-main-sp.png"
-                alt="Logo"
-                height="80px"
-              />
-            </ChakraLink>
-          </Box>
-          <Box mt={3}>
-            <Image
-              display={{ base: "none", lg: "block" }}
-              src="/logo-sub.png"
-              alt="Logo"
-              height="35px"
-            />
-          </Box>
+        <HStack alignItems="center">
+          <ChakraLink as={Link} to="/">
+            <Heading as="h1" size="md">
+              テックブログ
+            </Heading>
+          </ChakraLink>
         </HStack>
         <HStack spacing={8} alignItems="center">
           <HStack as="nav" spacing={4} display={{ base: "none", md: "flex" }}>
