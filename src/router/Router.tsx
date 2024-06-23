@@ -1,6 +1,6 @@
 import { Navigate, createBrowserRouter } from "react-router-dom";
 
-import { ArticleList } from "../components/pages/ArticleList";
+import { Articles } from "../components/pages/Articles";
 import { Article } from "../components/pages/Article";
 import { CategoryList } from "../components/pages/CategoryList";
 import { Contact } from "../components/pages/Contact";
@@ -20,7 +20,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/articles",
-        element: <ArticleList />,
+        element: <Articles />,
       },
       {
         path: "/article/:id",
