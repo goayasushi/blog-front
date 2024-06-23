@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, memo, useEffect, useRef, useState } from "react";
 import {
   Box,
   Flex,
@@ -22,9 +22,9 @@ import {
 import { HamburgerIcon, CloseIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 
-import { NavLink } from "../atoms/NavLick";
-import { client } from "../../libs/client";
-import { Category } from "../../types/category";
+import { NavLink } from "../../atoms/NavLick";
+import { client } from "../../../libs/client";
+import { Category } from "../../../types/category";
 
 const HeaderLinks = [
   {
@@ -46,7 +46,7 @@ const HamburgerLinks = [
   { path: "contact", children: "お問い合わせ" },
 ];
 
-export const Header: FC = () => {
+export const Header: FC = memo(() => {
   const {
     isOpen: isCategoryOpen,
     onOpen: onCategoryOpen,
@@ -161,4 +161,4 @@ export const Header: FC = () => {
       </Drawer>
     </Box>
   );
-};
+});
