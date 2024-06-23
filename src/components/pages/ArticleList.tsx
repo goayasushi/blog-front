@@ -1,9 +1,9 @@
 import { FC, memo, useEffect, useState } from "react";
-import { Box, GridItem, Image, Link, SimpleGrid, Text } from "@chakra-ui/react";
+import { Box, GridItem, SimpleGrid, Text } from "@chakra-ui/react";
 
 import { Article } from "../../types/article";
 import { client } from "../../libs/client";
-import { formatDate } from "../../utils/formatDate";
+import { ArticleCard } from "../organisms/article/ArticleCard";
 
 export const ArticleList: FC = memo(() => {
   const [articles, setArticles] = useState<Array<Article>>([]);
@@ -33,28 +33,13 @@ export const ArticleList: FC = memo(() => {
       </Box>
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
         {articles.map((article) => (
-          <Box
-            key={article.id}
-            borderWidth="1px"
-            borderRadius="lg"
-            overflow="hidden"
-          >
-            <Link
-              href={`/article/${article.id}`}
-              _hover={{ textDecoration: "none" }}
-            >
-              <Image src={article.eyecatch.url} alt={article.title} />
-              <Box p={4}>
-                <Text fontWeight="bold" fontSize="xl" mb={2}>
-                  {article.title}
-                </Text>
-                <Text fontSize="sm" color="gray.500" mb={2}>
-                  {article.category.name}
-                </Text>
-                <Text color="gray.500">{formatDate(article.createdAt)}</Text>
-              </Box>
-            </Link>
-          </Box>
+          <ArticleCard
+            id={article.id}
+            eyecatchUrl={article.eyecatch.url}
+            title={article.title}
+            categoryName={article.category.name}
+            createdAt={article.createdAt}
+          />
         ))}
       </SimpleGrid>
     </>
