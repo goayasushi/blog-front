@@ -1,10 +1,12 @@
 import { FC, memo, useEffect, useState } from "react";
-import { client } from "../../libs/client";
 import { Box, GridItem, Image, Link, SimpleGrid, Text } from "@chakra-ui/react";
+
 import { Article } from "../../types/article";
+import { client } from "../../libs/client";
+import { formatDate } from "../../utils/formatDate";
 
 export const ArticleList: FC = memo(() => {
-  const [articles, setArticless] = useState<Array<Article>>([]);
+  const [articles, setArticles] = useState<Array<Article>>([]);
 
   useEffect(() => {
     client
@@ -13,7 +15,7 @@ export const ArticleList: FC = memo(() => {
       })
       .then((res) => {
         console.log(res.contents);
-        setArticless(res.contents);
+        setArticles(res.contents);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -26,7 +28,7 @@ export const ArticleList: FC = memo(() => {
 
   const ArticleList = () => (
     <>
-      <Box py={4}>
+      <Box mb={4}>
         <Text>記事一覧 &gt; テクノロジー</Text>
       </Box>
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
@@ -37,7 +39,10 @@ export const ArticleList: FC = memo(() => {
             borderRadius="lg"
             overflow="hidden"
           >
-            <Link href={`/articles/${article.id}`}>
+            <Link
+              href={`/article/${article.id}`}
+              _hover={{ textDecoration: "none" }}
+            >
               <Image src={article.eyecatch.url} alt={article.title} />
               <Box p={4}>
                 <Text fontWeight="bold" fontSize="xl" mb={2}>
@@ -46,7 +51,7 @@ export const ArticleList: FC = memo(() => {
                 <Text fontSize="sm" color="gray.500" mb={2}>
                   {article.category.name}
                 </Text>
-                <Text>{article.createdAt}</Text>
+                <Text color="gray.500">{formatDate(article.createdAt)}</Text>
               </Box>
             </Link>
           </Box>

@@ -1,4 +1,4 @@
-import { FC, memo, ReactNode } from "react";
+import { FC, memo } from "react";
 import { Outlet } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
 
@@ -9,7 +9,7 @@ export const HeaderLayout: FC = memo(() => {
   return (
     <>
       <Header />
-      <Box pt="12">
+      <Box pt="20">
         <Outlet />
       </Box>
       <Footer />
