@@ -1,8 +1,8 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import { Box, Divider, Flex, Text } from "@chakra-ui/react";
-import { PrimaryLink } from "../atoms/PrimaryLink";
+import { PrimaryLink } from "../../atoms/PrimaryLink";
 
-export const Footer: FC = () => {
+export const Footer: FC = memo(() => {
   return (
     <>
       <Box bg="white" py={4} mt={8} boxShadow="sm">
@@ -19,4 +19,4 @@ export const Footer: FC = () => {
       </Box>
     </>
   );
-};
+});

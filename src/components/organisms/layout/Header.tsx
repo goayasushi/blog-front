@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, memo, useEffect, useRef, useState } from "react";
 import {
   Box,
   Flex,
@@ -10,7 +10,6 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  Image,
   Drawer,
   DrawerOverlay,
   DrawerContent,
@@ -18,13 +17,14 @@ import {
   DrawerHeader,
   DrawerBody,
   Link as ChakraLink,
+  Heading,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 
-import { NavLink } from "../atoms/NavLick";
-import { client } from "../../libs/client";
-import { CategoryType } from "../../types/Category";
+import { NavLink } from "../../atoms/NavLick";
+import { client } from "../../../libs/client";
+import { Category } from "../../../types/category";
 
 const HeaderLinks = [
   {
@@ -46,7 +46,7 @@ const HamburgerLinks = [
   { path: "contact", children: "お問い合わせ" },
 ];
 
-export const Header: FC = () => {
+export const Header: FC = memo(() => {
   const {
     isOpen: isCategoryOpen,
     onOpen: onCategoryOpen,
@@ -60,7 +60,7 @@ export const Header: FC = () => {
   const btnRef = useRef<HTMLButtonElement>(null);
 
   // カテゴリー取得
-  const [categories, setCategories] = useState<Array<CategoryType>>([]);
+  const [categories, setCategories] = useState<Array<Category>>([]);
   useEffect(() => {
     client
       .get({
@@ -77,37 +77,20 @@ export const Header: FC = () => {
     <Box
       bg="white"
       px={4}
-      boxShadow="md"
+      py={4}
+      borderBottom="1px"
+      borderBottomColor="gray.400"
       position="fixed"
       width="100%"
       zIndex={1}
     >
       <Flex alignItems="center" justifyContent="space-between">
-        <HStack spacing={8} alignItems="center">
-          <Box>
-            <ChakraLink as={Link} to="/">
-              <Image
-                display={{ base: "none", lg: "block" }}
-                src="/logo-main.png"
-                alt="Logo"
-                height="80px"
-              />
-              <Image
-                display={{ base: "block", lg: "none" }}
-                src="/logo-main-sp.png"
-                alt="Logo"
-                height="80px"
-              />
-            </ChakraLink>
-          </Box>
-          <Box mt={3}>
-            <Image
-              display={{ base: "none", lg: "block" }}
-              src="/logo-sub.png"
-              alt="Logo"
-              height="35px"
-            />
-          </Box>
+        <HStack alignItems="center">
+          <ChakraLink as={Link} to="/">
+            <Heading as="h1" size="md">
+              テックブログ
+            </Heading>
+          </ChakraLink>
         </HStack>
         <HStack spacing={8} alignItems="center">
           <HStack as="nav" spacing={4} display={{ base: "none", md: "flex" }}>
@@ -178,4 +161,4 @@ export const Header: FC = () => {
       </Drawer>
     </Box>
   );
-};
+});
