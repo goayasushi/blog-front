@@ -7,7 +7,7 @@ import { Contact } from "../components/pages/Contact";
 import { PrivacyPolicy } from "../components/pages/PrivacyPolicy";
 import { Profile } from "../components/pages/Profile";
 import { Page404 } from "../components/pages/Page404";
-import { HeaderLayout } from "../components/templates/PageLayout";
+import { PageLayout } from "../components/templates/PageLayout";
 
 export const router = createBrowserRouter([
   {
@@ -16,7 +16,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <HeaderLayout />,
+    element: <PageLayout />,
     children: [
       {
         path: "/articles",
