@@ -4,6 +4,7 @@ import { Box, Text } from "@chakra-ui/react";
 import { Article } from "../../types/article";
 import { client } from "../../libs/client";
 import { ArticleList } from "../organisms/article/ArticleList";
+import { Breadcrumbs } from "../molecules/Breadcrumbs";
 
 export const Articles: FC = memo(() => {
   const [articles, setArticles] = useState<Array<Article>>([]);
@@ -23,7 +24,7 @@ export const Articles: FC = memo(() => {
   return (
     <Box px={{ base: 4, md: 10 }}>
       <Box mb={4}>
-        <Text>記事一覧 &gt; テクノロジー</Text>
+        <Breadcrumbs />
       </Box>
       <ArticleList articles={articles} baseColumns={1} mdColumns={2} />
     </Box>

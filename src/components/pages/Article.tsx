@@ -4,6 +4,7 @@ import parse, { DOMNode, Element as DomElement } from "html-react-parser";
 import { useParams } from "react-router-dom";
 import { Box, Heading, Image, Text } from "@chakra-ui/react";
 import { formatDate } from "../../utils/formatDate";
+import { Breadcrumbs } from "../molecules/Breadcrumbs";
 
 type Blog = {
   category: {
@@ -68,7 +69,10 @@ export const Article: FC = memo(() => {
             alt={blog.title}
           />
           <Box mt={8}>
-            <Text>記事一覧 &gt; テクノロジー</Text>
+            <Breadcrumbs
+              category={blog.category.name}
+              categoryId={blog.category.id}
+            />
           </Box>
 
           <Box mt={8} p={2}>
