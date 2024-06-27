@@ -1,6 +1,9 @@
 import { FC, memo, useEffect, useState } from "react";
 import { client } from "../../libs/client";
 import parse, { DOMNode, Element as DomElement } from "html-react-parser";
+import { useParams } from "react-router-dom";
+import { Box, Heading, Image, Text } from "@chakra-ui/react";
+import { formatDate } from "../../utils/formatDate";
 
 type Blog = {
   category: {
@@ -26,16 +29,17 @@ type Blog = {
 };
 
 export const Article: FC = memo(() => {
-  const [blogs, setBlogs] = useState<Array<Blog>>([]);
+  const [blog, setBlog] = useState<Blog | null>(null);
+  const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
     client
       .get({
-        endpoint: "blogs",
+        endpoint: `blogs/${id}`,
       })
       .then((res) => {
         console.log(res.contents);
-        setBlogs(res.contents);
+        setBlog(res);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -55,19 +59,29 @@ export const Article: FC = memo(() => {
 
   return (
     <>
-      <p>疎通確認</p>
-      {blogs.map((blog) => (
-        <div key={blog.id}>
-          <p>{blog.title}</p>
-          <img
+      {blog && (
+        <Box px={{ base: 4, md: 10 }}>
+          <Image
             src={blog.eyecatch.url}
-            style={{ width: 600, height: 300 }}
+            width={{ base: "100%", md: "800px" }}
+            height="auto"
             alt={blog.title}
           />
-          <br />
-          <div>{parse(blog.content, { replace: transform })}</div>
-        </div>
-      ))}
+          <Box mt={8}>
+            <Text>記事一覧 &gt; テクノロジー</Text>
+          </Box>
+
+          <Box mt={8} p={2}>
+            <Heading as="h1" size="xl">
+              {blog.title}
+            </Heading>
+            <Text mt={2} color="gray.500">
+              {formatDate(blog.createdAt)}
+            </Text>
+            <Box mt={8}>{parse(blog.content, { replace: transform })}</Box>
+          </Box>
+        </Box>
+      )}
     </>
   );
 });

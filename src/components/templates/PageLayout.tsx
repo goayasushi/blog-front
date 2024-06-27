@@ -10,8 +10,8 @@ export const PageLayout: FC = memo(() => {
   return (
     <>
       <Header />
-      <Box p={10} display="flex" justifyContent="center">
-        <Box pt="20">
+      <Box display="flex" justifyContent="center">
+        <Box pt="28">
           <SimpleGrid columns={{ base: 1, lg: 3 }} spacing={10} maxW="1200px">
             <GridItem colSpan={{ base: 1, lg: 2 }}>
               <Outlet />

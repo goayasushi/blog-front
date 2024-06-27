@@ -21,11 +21,11 @@ export const Articles: FC = memo(() => {
   }, []);
 
   return (
-    <>
+    <Box px={{ base: 4, md: 10 }}>
       <Box mb={4}>
         <Text>記事一覧 &gt; テクノロジー</Text>
       </Box>
       <ArticleList articles={articles} baseColumns={1} mdColumns={2} />
-    </>
+    </Box>
   );
 });

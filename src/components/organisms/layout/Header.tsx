@@ -86,7 +86,7 @@ export const Header: FC = memo(() => {
     >
       <Flex alignItems="center" justifyContent="space-between">
         <HStack alignItems="center">
-          <ChakraLink as={Link} to="/">
+          <ChakraLink as={Link} to="/" _hover={{ textDecoration: "none" }}>
             <Heading as="h1" size="md">
               テックブログ
             </Heading>
