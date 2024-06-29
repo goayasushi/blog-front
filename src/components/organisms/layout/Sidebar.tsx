@@ -1,4 +1,4 @@
-import { FC, memo, useEffect, useState } from "react";
+import React, { FC, memo, useEffect, useState } from "react";
 import {
   Box,
   Heading,
@@ -34,8 +34,8 @@ export const Sidebar: FC = memo(() => {
         </Heading>
         <VStack align="start" spacing={2} m={4}>
           {categories.map((category, index) => (
-            <>
-              <Box key={category.id}>
+            <React.Fragment key={category.id}>
+              <Box>
                 <ChakraLink
                   as={Link}
                   to={`/category/${category.id}`}
@@ -47,7 +47,7 @@ export const Sidebar: FC = memo(() => {
               {index < categories.length - 1 && (
                 <Divider borderColor="gray.300" />
               )}
-            </>
+            </React.Fragment>
           ))}
         </VStack>
       </Box>

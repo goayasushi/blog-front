@@ -15,7 +15,7 @@ export const ArticleCard: FC<Props> = memo((props) => {
   const { id, eyecatchUrl, title, categoryName, createdAt } = props;
   return (
     <>
-      <Box key={id} borderWidth="1px" borderRadius="lg" overflow="hidden">
+      <Box borderWidth="1px" borderRadius="lg" overflow="hidden">
         <ChakraLink
           as={Link}
           to={`/article/${id}`}

@@ -17,6 +17,7 @@ export const ArticleList: FC<Props> = memo((props) => {
       <SimpleGrid columns={{ base: baseColumns, md: mdColumns }} spacing={10}>
         {articles.map((article) => (
           <ArticleCard
+            key={article.id}
             id={article.id}
             eyecatchUrl={article.eyecatch.url}
             title={article.title}
