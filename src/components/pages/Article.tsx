@@ -1,33 +1,12 @@
 import { FC, memo, useEffect, useState } from "react";
-import { client } from "../../libs/client";
 import parse, { DOMNode, Element as DomElement } from "html-react-parser";
 import { useParams } from "react-router-dom";
 import { Box, Heading, Image, Text } from "@chakra-ui/react";
+
+import { client } from "../../libs/client";
 import { formatDate } from "../../utils/formatDate";
 import { Breadcrumbs } from "../molecules/Breadcrumbs";
-
-type Blog = {
-  category: {
-    createdAt: string;
-    id: string;
-    name: string;
-    publishedAt: string;
-    revisedAt: string;
-    updatedAt: string;
-  };
-  content: string;
-  createdAt: string;
-  eyecatch: {
-    url: string;
-    height: number;
-    width: number;
-  };
-  id: string;
-  publishedAt: string;
-  revisedAt: string;
-  title: string;
-  updatedAt: string;
-};
+import { Blog } from "../../types/blog";
 
 export const Article: FC = memo(() => {
   const [blog, setBlog] = useState<Blog | null>(null);
