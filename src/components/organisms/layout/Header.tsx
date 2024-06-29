@@ -18,11 +18,17 @@ import {
   DrawerBody,
   Link as ChakraLink,
   Heading,
+  Text,
 } from "@chakra-ui/react";
-import { HamburgerIcon, CloseIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import {
+  HamburgerIcon,
+  CloseIcon,
+  ChevronDownIcon,
+  ChevronRightIcon,
+} from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 
-import { NavLink } from "../../atoms/NavLick";
+import { NavLink } from "../../atoms/NavLink";
 import { client } from "../../../libs/client";
 import { Category } from "../../../types/category";
 
@@ -32,7 +38,7 @@ const HeaderLinks = [
     children: "プロフィール",
   },
   {
-    path: "categories",
+    path: "category",
     children: "カテゴリー",
   },
   { path: "contact", children: "お問い合わせ" },
@@ -42,8 +48,14 @@ const HamburgerLinks = [
   {
     path: "profile",
     children: "プロフィール",
+    isLink: true,
   },
-  { path: "contact", children: "お問い合わせ" },
+  {
+    path: "category",
+    children: "カテゴリー",
+    isLink: false,
+  },
+  { path: "contact", children: "お問い合わせ", isLink: true },
 ];
 
 export const Header: FC = memo(() => {
@@ -67,7 +79,6 @@ export const Header: FC = memo(() => {
         endpoint: "categories",
       })
       .then((res) => {
-        console.log(res.contents);
         setCategories(res.contents);
       })
       .catch((err) => console.log(err));
@@ -115,8 +126,9 @@ export const Header: FC = memo(() => {
                 {categories.map((category) => (
                   <MenuItem
                     as={Link}
-                    to={`/category/${category.id}`}
+                    to={`/${HeaderLinks[1].path}/${category.id}`}
                     key={category.id}
+                    _hover={{ backgroundColor: "transparent" }}
                   >
                     {category.name}
                   </MenuItem>
@@ -150,11 +162,36 @@ export const Header: FC = memo(() => {
           <DrawerHeader>Menu</DrawerHeader>
           <DrawerBody>
             <Stack as="nav" spacing={4}>
-              {HamburgerLinks.map((link) => (
-                <NavLink path={link.path} key={link.path}>
-                  {link.children}
-                </NavLink>
-              ))}
+              {HamburgerLinks.map((link) =>
+                link.isLink ? (
+                  <NavLink
+                    key={link.path}
+                    path={link.path}
+                    onClick={onDrawerClose}
+                  >
+                    {link.children}
+                  </NavLink>
+                ) : (
+                  <Box key={link.path}>
+                    <Text px={2} py={1} mb={2}>
+                      {link.children}
+                    </Text>
+                    <Stack spacing={4}>
+                      {categories.map((category) => (
+                        <Box key={category.name} pl={4}>
+                          <ChevronRightIcon />
+                          <NavLink
+                            path={`${link.path}/${category.id}`}
+                            onClick={onDrawerClose}
+                          >
+                            {category.name}
+                          </NavLink>
+                        </Box>
+                      ))}
+                    </Stack>
+                  </Box>
+                )
+              )}
             </Stack>
           </DrawerBody>
         </DrawerContent>

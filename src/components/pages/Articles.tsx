@@ -15,7 +15,6 @@ export const Articles: FC = memo(() => {
         endpoint: "blogs",
       })
       .then((res) => {
-        console.log(res.contents);
         setArticles(res.contents);
       })
       .catch((err) => console.log(err));
