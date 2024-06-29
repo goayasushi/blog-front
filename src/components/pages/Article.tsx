@@ -18,7 +18,6 @@ export const Article: FC = memo(() => {
         endpoint: `blogs/${id}`,
       })
       .then((res) => {
-        console.log(res.contents);
         setBlog(res);
       })
       .catch((err) => console.log(err));

@@ -79,7 +79,6 @@ export const Header: FC = memo(() => {
         endpoint: "categories",
       })
       .then((res) => {
-        console.log(res.contents);
         setCategories(res.contents);
       })
       .catch((err) => console.log(err));
