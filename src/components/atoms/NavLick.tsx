@@ -6,10 +6,11 @@ import { Link } from "react-router-dom";
 type Props = {
   children: ReactNode;
   path: string;
+  onClick?: () => void;
 };
 
 export const NavLink: FC<Props> = (props) => {
-  const { children, path } = props;
+  const { children, path, onClick } = props;
   return (
     <ChakraLink
       as={Link}
@@ -21,6 +22,7 @@ export const NavLink: FC<Props> = (props) => {
         textDecoration: "none",
         bg: "gray.200",
       }}
+      onClick={onClick}
     >
       {children}
     </ChakraLink>

@@ -151,7 +151,11 @@ export const Header: FC = memo(() => {
           <DrawerBody>
             <Stack as="nav" spacing={4}>
               {HamburgerLinks.map((link) => (
-                <NavLink path={link.path} key={link.path}>
+                <NavLink
+                  path={link.path}
+                  key={link.path}
+                  onClick={onDrawerClose}
+                >
                   {link.children}
                 </NavLink>
               ))}
