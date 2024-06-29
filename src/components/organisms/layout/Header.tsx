@@ -126,7 +126,7 @@ export const Header: FC = memo(() => {
                 {categories.map((category) => (
                   <MenuItem
                     as={Link}
-                    to={`/category/${category.id}`}
+                    to={`/${HeaderLinks[1].path}/${category.id}`}
                     key={category.id}
                   >
                     {category.name}
