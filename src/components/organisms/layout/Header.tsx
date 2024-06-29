@@ -28,7 +28,7 @@ import {
 } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 
-import { NavLink } from "../../atoms/NavLick";
+import { NavLink } from "../../atoms/NavLink";
 import { client } from "../../../libs/client";
 import { Category } from "../../../types/category";
 
