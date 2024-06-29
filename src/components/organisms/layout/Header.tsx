@@ -18,8 +18,14 @@ import {
   DrawerBody,
   Link as ChakraLink,
   Heading,
+  Text,
 } from "@chakra-ui/react";
-import { HamburgerIcon, CloseIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import {
+  HamburgerIcon,
+  CloseIcon,
+  ChevronDownIcon,
+  ChevronRightIcon,
+} from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 
 import { NavLink } from "../../atoms/NavLick";
@@ -32,7 +38,7 @@ const HeaderLinks = [
     children: "プロフィール",
   },
   {
-    path: "categories",
+    path: "category",
     children: "カテゴリー",
   },
   { path: "contact", children: "お問い合わせ" },
@@ -42,8 +48,14 @@ const HamburgerLinks = [
   {
     path: "profile",
     children: "プロフィール",
+    isLink: true,
   },
-  { path: "contact", children: "お問い合わせ" },
+  {
+    path: "category",
+    children: "カテゴリー",
+    isLink: false,
+  },
+  { path: "contact", children: "お問い合わせ", isLink: true },
 ];
 
 export const Header: FC = memo(() => {
@@ -150,15 +162,36 @@ export const Header: FC = memo(() => {
           <DrawerHeader>Menu</DrawerHeader>
           <DrawerBody>
             <Stack as="nav" spacing={4}>
-              {HamburgerLinks.map((link) => (
-                <NavLink
-                  path={link.path}
-                  key={link.path}
-                  onClick={onDrawerClose}
-                >
-                  {link.children}
-                </NavLink>
-              ))}
+              {HamburgerLinks.map((link) =>
+                link.isLink ? (
+                  <NavLink
+                    key={link.path}
+                    path={link.path}
+                    onClick={onDrawerClose}
+                  >
+                    {link.children}
+                  </NavLink>
+                ) : (
+                  <Box key={link.path}>
+                    <Text px={2} py={1} mb={2}>
+                      {link.children}
+                    </Text>
+                    <Stack spacing={4}>
+                      {categories.map((category) => (
+                        <Box key={category.name} pl={4}>
+                          <ChevronRightIcon />
+                          <NavLink
+                            path={`${link.path}/${category.id}`}
+                            onClick={onDrawerClose}
+                          >
+                            {category.name}
+                          </NavLink>
+                        </Box>
+                      ))}
+                    </Stack>
+                  </Box>
+                )
+              )}
             </Stack>
           </DrawerBody>
         </DrawerContent>
