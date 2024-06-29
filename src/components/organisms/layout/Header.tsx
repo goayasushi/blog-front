@@ -128,6 +128,7 @@ export const Header: FC = memo(() => {
                     as={Link}
                     to={`/${HeaderLinks[1].path}/${category.id}`}
                     key={category.id}
+                    _hover={{ backgroundColor: "transparent" }}
                   >
                     {category.name}
                   </MenuItem>

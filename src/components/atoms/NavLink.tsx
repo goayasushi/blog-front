@@ -20,7 +20,6 @@ export const NavLink: FC<Props> = (props) => {
       rounded={"md"}
       _hover={{
         textDecoration: "none",
-        bg: "gray.200",
       }}
       onClick={onClick}
     >

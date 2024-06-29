@@ -39,7 +39,7 @@ export const Sidebar: FC = memo(() => {
                 <ChakraLink
                   as={Link}
                   to={`/category/${category.id}`}
-                  _hover={{ textDecoration: "none", color: "teal.500" }}
+                  _hover={{ textDecoration: "none" }}
                 >
                   <Text>{category.name}</Text>
                 </ChakraLink>
