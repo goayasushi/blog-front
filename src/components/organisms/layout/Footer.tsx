@@ -14,7 +14,7 @@ export const Footer: FC = memo(() => {
           <PrimaryLink path="/contact"> 問い合わせ</PrimaryLink>
         </Flex>
         <Text textAlign="center" mt={4} fontSize={{ base: "2xs", md: "lg" }}>
-          © ヨワケン.
+          © goyasu.
         </Text>
       </Box>
     </>
