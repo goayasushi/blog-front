@@ -1,7 +1,7 @@
 import { Navigate, createBrowserRouter } from "react-router-dom";
 
 import { Articles } from "../components/pages/Articles";
-import { Article } from "../components/pages/Article";
+import { ArticleDetail } from "../components/pages/Article";
 import { CategoryList } from "../components/pages/CategoryList";
 import { Contact } from "../components/pages/Contact";
 import { PrivacyPolicy } from "../components/pages/PrivacyPolicy";
@@ -24,7 +24,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/article/:id",
-        element: <Article />,
+        element: <ArticleDetail />,
       },
       {
         path: "/category/:id",
