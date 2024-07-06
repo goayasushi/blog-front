@@ -13,11 +13,7 @@ const fetchArticles = async () => {
 };
 
 export const Articles: FC = memo(() => {
-  const {
-    data: articles,
-    isLoading,
-    error,
-  } = useSuspenseQuery<Array<Article>>({
+  const { data: articles } = useSuspenseQuery<Array<Article>>({
     queryKey: ["articles"],
     queryFn: fetchArticles,
   });
