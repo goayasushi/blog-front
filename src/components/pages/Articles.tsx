@@ -1,4 +1,4 @@
-import { FC, memo, useEffect, useState } from "react";
+import { FC, memo } from "react";
 import { Box } from "@chakra-ui/react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
