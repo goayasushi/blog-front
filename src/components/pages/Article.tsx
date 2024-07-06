@@ -21,9 +21,8 @@ export const ArticleDetail: FC = memo(() => {
   const { id } = useParams<{ id: string | undefined }>();
 
   const { data: article } = useSuspenseQuery<Article>({
-    queryKey: ["article"],
+    queryKey: ["article", id],
     queryFn: () => fetchArticle(id),
-    gcTime: 0,
   });
 
   const transform = (node: DOMNode) => {
