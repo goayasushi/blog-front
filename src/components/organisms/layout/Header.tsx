@@ -1,4 +1,4 @@
-import { FC, memo, useEffect, useRef, useState } from "react";
+import { FC, memo, useRef } from "react";
 import {
   Box,
   Flex,
@@ -27,6 +27,7 @@ import {
   ChevronRightIcon,
 } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 import { NavLink } from "../../atoms/NavLink";
 import { client } from "../../../libs/client";
@@ -58,6 +59,11 @@ const HamburgerLinks = [
   { path: "contact", children: "お問い合わせ", isLink: true },
 ];
 
+const fetchCategories = async () => {
+  const res = await client.get({ endpoint: "categories" });
+  return res.contents;
+};
+
 export const Header: FC = memo(() => {
   const {
     isOpen: isCategoryOpen,
@@ -71,18 +77,10 @@ export const Header: FC = memo(() => {
   } = useDisclosure();
   const btnRef = useRef<HTMLButtonElement>(null);
 
-  // カテゴリー取得
-  const [categories, setCategories] = useState<Array<Category>>([]);
-  useEffect(() => {
-    client
-      .get({
-        endpoint: "categories",
-      })
-      .then((res) => {
-        setCategories(res.contents);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  const { data: categories } = useSuspenseQuery<Array<Category>>({
+    queryKey: ["categories"],
+    queryFn: fetchCategories,
+  });
 
   return (
     <Box
