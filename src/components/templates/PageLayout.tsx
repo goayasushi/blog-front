@@ -19,7 +19,9 @@ export const PageLayout: FC = memo(() => {
               </Suspense>
             </GridItem>
             <GridItem colSpan={1}>
-              <Sidebar />
+              <Suspense fallback={<Spinner />}>
+                <Sidebar />
+              </Suspense>
             </GridItem>
           </SimpleGrid>
         </Box>

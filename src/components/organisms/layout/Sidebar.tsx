@@ -1,4 +1,4 @@
-import React, { FC, memo, useEffect, useState } from "react";
+import React, { FC, memo } from "react";
 import {
   Box,
   Heading,
@@ -11,20 +11,18 @@ import { Link } from "react-router-dom";
 
 import { client } from "../../../libs/client";
 import { Category } from "../../../types/category";
+import { useSuspenseQuery } from "@tanstack/react-query";
+
+const fetchCategories = async () => {
+  const res = await client.get({ endpoint: "categories" });
+  return res.contents;
+};
 
 export const Sidebar: FC = memo(() => {
-  const [categories, setCategories] = useState<Array<Category>>([]);
-
-  useEffect(() => {
-    client
-      .get({
-        endpoint: "categories",
-      })
-      .then((res) => {
-        setCategories(res.contents);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  const { data: categories } = useSuspenseQuery<Array<Category>>({
+    queryKey: ["categories"],
+    queryFn: fetchCategories,
+  });
 
   return (
     <>
