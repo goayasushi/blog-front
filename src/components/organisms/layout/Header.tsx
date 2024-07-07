@@ -1,4 +1,4 @@
-import { FC, memo, useRef } from "react";
+import { FC, Suspense, memo, useRef } from "react";
 import {
   Box,
   Flex,
@@ -9,7 +9,6 @@ import {
   Menu,
   MenuButton,
   MenuList,
-  MenuItem,
   Drawer,
   DrawerOverlay,
   DrawerContent,
@@ -19,19 +18,14 @@ import {
   Link as ChakraLink,
   Heading,
   Text,
+  Spinner,
 } from "@chakra-ui/react";
-import {
-  HamburgerIcon,
-  CloseIcon,
-  ChevronDownIcon,
-  ChevronRightIcon,
-} from "@chakra-ui/icons";
+import { HamburgerIcon, CloseIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
-import { useSuspenseQuery } from "@tanstack/react-query";
 
 import { NavLink } from "../../atoms/NavLink";
-import { client } from "../../../libs/client";
-import { Category } from "../../../types/category";
+import { NavCategoryLink } from "../../molecules/NavCategoryLink";
+import { DrawerCategoryLink } from "../../molecules/DrawerCategoryLink";
 
 const HeaderLinks = [
   {
@@ -59,11 +53,6 @@ const HamburgerLinks = [
   { path: "contact", children: "お問い合わせ", isLink: true },
 ];
 
-const fetchCategories = async () => {
-  const res = await client.get({ endpoint: "categories" });
-  return res.contents;
-};
-
 export const Header: FC = memo(() => {
   const {
     isOpen: isCategoryOpen,
@@ -76,11 +65,6 @@ export const Header: FC = memo(() => {
     onClose: onDrawerClose,
   } = useDisclosure();
   const btnRef = useRef<HTMLButtonElement>(null);
-
-  const { data: categories } = useSuspenseQuery<Array<Category>>({
-    queryKey: ["categories"],
-    queryFn: fetchCategories,
-  });
 
   return (
     <Box
@@ -121,16 +105,9 @@ export const Header: FC = memo(() => {
                 onMouseEnter={onCategoryOpen}
                 onMouseLeave={onCategoryClose}
               >
-                {categories.map((category) => (
-                  <MenuItem
-                    as={Link}
-                    to={`/${HeaderLinks[1].path}/${category.id}`}
-                    key={category.id}
-                    _hover={{ backgroundColor: "transparent" }}
-                  >
-                    {category.name}
-                  </MenuItem>
-                ))}
+                <Suspense fallback={<Spinner />}>
+                  <NavCategoryLink />
+                </Suspense>
               </MenuList>
             </Menu>
             <NavLink path={HeaderLinks[2].path}>
@@ -175,17 +152,9 @@ export const Header: FC = memo(() => {
                       {link.children}
                     </Text>
                     <Stack spacing={4}>
-                      {categories.map((category) => (
-                        <Box key={category.name} pl={4}>
-                          <ChevronRightIcon />
-                          <NavLink
-                            path={`${link.path}/${category.id}`}
-                            onClick={onDrawerClose}
-                          >
-                            {category.name}
-                          </NavLink>
-                        </Box>
-                      ))}
+                      <Suspense fallback={<Spinner />}>
+                        <DrawerCategoryLink onDrawerClose={onDrawerClose} />
+                      </Suspense>
                     </Stack>
                   </Box>
                 )
