@@ -1,7 +1,7 @@
 import { Navigate, createBrowserRouter } from "react-router-dom";
 
 import { Articles } from "../components/pages/Articles";
-import { ArticleDetail } from "../components/pages/Article";
+import { ArticleDetail } from "../components/pages/ArticleDetail";
 import { CategoryList } from "../components/pages/CategoryList";
 import { Contact } from "../components/pages/Contact";
 import { PrivacyPolicy } from "../components/pages/PrivacyPolicy";
