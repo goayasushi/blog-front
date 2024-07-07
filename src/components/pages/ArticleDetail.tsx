@@ -1,27 +1,29 @@
-import { FC, memo, useEffect, useState } from "react";
+import { FC, memo } from "react";
 import parse, { DOMNode, Element as DomElement } from "html-react-parser";
 import { useParams } from "react-router-dom";
 import { Box, Heading, Image, Text } from "@chakra-ui/react";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 import { client } from "../../libs/client";
 import { formatDate } from "../../utils/formatDate";
 import { Breadcrumbs } from "../molecules/Breadcrumbs";
-import { Blog } from "../../types/blog";
+import { Article } from "../../types/article";
 
-export const Article: FC = memo(() => {
-  const [blog, setBlog] = useState<Blog | null>(null);
-  const { id } = useParams<{ id: string }>();
+const fetchArticle = async (id: string | undefined) => {
+  const res = await client.get({
+    endpoint: "blogs",
+    contentId: id,
+  });
+  return res;
+};
 
-  useEffect(() => {
-    client
-      .get({
-        endpoint: `blogs/${id}`,
-      })
-      .then((res) => {
-        setBlog(res);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+export const ArticleDetail: FC = memo(() => {
+  const { id } = useParams<{ id: string | undefined }>();
+
+  const { data: article } = useSuspenseQuery<Article>({
+    queryKey: ["article", id],
+    queryFn: () => fetchArticle(id),
+  });
 
   const transform = (node: DOMNode) => {
     if (node.type === "tag" && (node as DomElement).name === "img") {
@@ -38,29 +40,29 @@ export const Article: FC = memo(() => {
 
   return (
     <>
-      {blog && (
+      {article && (
         <Box px={{ base: 4, md: 10 }}>
           <Image
-            src={blog.eyecatch.url}
+            src={article.eyecatch.url}
             width={{ base: "100%", md: "800px" }}
             height="auto"
-            alt={blog.title}
+            alt={article.title}
           />
           <Box mt={8}>
             <Breadcrumbs
-              category={blog.category.name}
-              categoryId={blog.category.id}
+              category={article.category.name}
+              categoryId={article.category.id}
             />
           </Box>
 
           <Box mt={8} p={2}>
             <Heading as="h1" size="xl">
-              {blog.title}
+              {article.title}
             </Heading>
             <Text mt={2} color="gray.500">
-              {formatDate(blog.createdAt)}
+              {formatDate(article.createdAt)}
             </Text>
-            <Box mt={8}>{parse(blog.content, { replace: transform })}</Box>
+            <Box mt={8}>{parse(article.content, { replace: transform })}</Box>
           </Box>
         </Box>
       )}

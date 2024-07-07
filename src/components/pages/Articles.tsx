@@ -1,24 +1,22 @@
-import { FC, memo, useEffect, useState } from "react";
+import { FC, memo } from "react";
 import { Box } from "@chakra-ui/react";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 import { Article } from "../../types/article";
 import { client } from "../../libs/client";
 import { ArticleList } from "../organisms/article/ArticleList";
 import { Breadcrumbs } from "../molecules/Breadcrumbs";
 
-export const Articles: FC = memo(() => {
-  const [articles, setArticles] = useState<Array<Article>>([]);
+const fetchArticles = async () => {
+  const res = await client.get({ endpoint: "blogs" });
+  return res.contents;
+};
 
-  useEffect(() => {
-    client
-      .get({
-        endpoint: "blogs",
-      })
-      .then((res) => {
-        setArticles(res.contents);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+export const Articles: FC = memo(() => {
+  const { data: articles } = useSuspenseQuery<Array<Article>>({
+    queryKey: ["articles"],
+    queryFn: fetchArticles,
+  });
 
   return (
     <Box px={{ base: 4, md: 10 }}>
