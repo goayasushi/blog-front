@@ -13,6 +13,7 @@ const fetchArticles = async (id: string | undefined) => {
     endpoint: "blogs",
     queries: { filters: `category[equals]${id}` },
   });
+  window.scrollTo(0, 0);
   return res.contents;
 };
 
