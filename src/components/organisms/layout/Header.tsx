@@ -22,10 +22,12 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
+import { ErrorBoundary } from "react-error-boundary";
 
 import { NavLink } from "../../atoms/NavLink";
 import { NavCategoryLink } from "../../molecules/NavCategoryLink";
 import { DrawerCategoryLink } from "../../molecules/DrawerCategoryLink";
+import { CategoryError } from "../../errors/CategoryError";
 
 const HeaderLinks = [
   {
@@ -105,9 +107,11 @@ export const Header: FC = memo(() => {
                 onMouseEnter={onCategoryOpen}
                 onMouseLeave={onCategoryClose}
               >
-                <Suspense fallback={<Spinner />}>
-                  <NavCategoryLink />
-                </Suspense>
+                <ErrorBoundary FallbackComponent={CategoryError}>
+                  <Suspense fallback={<Spinner />}>
+                    <NavCategoryLink />
+                  </Suspense>
+                </ErrorBoundary>
               </MenuList>
             </Menu>
             <NavLink path={HeaderLinks[2].path}>
@@ -152,9 +156,11 @@ export const Header: FC = memo(() => {
                       {link.children}
                     </Text>
                     <Stack spacing={4}>
-                      <Suspense fallback={<Spinner />}>
-                        <DrawerCategoryLink onDrawerClose={onDrawerClose} />
-                      </Suspense>
+                      <ErrorBoundary FallbackComponent={CategoryError}>
+                        <Suspense fallback={<Spinner />}>
+                          <DrawerCategoryLink onDrawerClose={onDrawerClose} />
+                        </Suspense>
+                      </ErrorBoundary>
                     </Stack>
                   </Box>
                 )

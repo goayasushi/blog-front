@@ -1,7 +1,9 @@
 import { FC, Suspense, memo } from "react";
 import { Box, Heading, VStack, Spinner } from "@chakra-ui/react";
+import { ErrorBoundary } from "react-error-boundary";
 
 import { CategoryLink } from "../../molecules/CategoryLink";
+import { CategoryError } from "../../errors/CategoryError";
 
 export const Sidebar: FC = memo(() => {
   return (
@@ -11,9 +13,11 @@ export const Sidebar: FC = memo(() => {
           カテゴリー
         </Heading>
         <VStack align="start" spacing={2} m={4}>
-          <Suspense fallback={<Spinner />}>
-            <CategoryLink />
-          </Suspense>
+          <ErrorBoundary FallbackComponent={CategoryError}>
+            <Suspense fallback={<Spinner />}>
+              <CategoryLink />
+            </Suspense>
+          </ErrorBoundary>
         </VStack>
       </Box>
     </>
