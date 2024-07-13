@@ -17,7 +17,6 @@ const is4xxrError = (status: number) => {
 
 export const CategoryError: FC<Props> = memo((props) => {
   const { error } = props;
-  const errorMessage = error.message;
 
   let statusCode = 0;
   const match = error.message.match(/status: (\d+)/);
@@ -35,7 +34,7 @@ export const CategoryError: FC<Props> = memo((props) => {
             <AlertDescription>
               時間を置いて再度お試しください。
               <br />
-              {errorMessage}
+              {error.message}
             </AlertDescription>
           </Box>
         </Alert>
