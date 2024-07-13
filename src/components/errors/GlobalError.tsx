@@ -5,6 +5,7 @@ import { PageOtherError } from "../pages/PageOtherError";
 
 type Props = {
   error: Error;
+  resetErrorBoundary: () => void;
 };
 
 const isServerError = (status: number) => {
@@ -12,7 +13,7 @@ const isServerError = (status: number) => {
 };
 
 export const GlobalError: FC<Props> = memo((props) => {
-  const { error } = props;
+  const { error, resetErrorBoundary } = props;
 
   let statusCode = 0;
   const match = error.message.match(/status: (\d+)/);
@@ -21,8 +22,10 @@ export const GlobalError: FC<Props> = memo((props) => {
   }
 
   if (isServerError(statusCode)) {
-    return <Page5xx error={error} />;
+    return <Page5xx error={error} resetErrorBoundary={resetErrorBoundary} />;
   } else {
-    return <PageOtherError error={error} />;
+    return (
+      <PageOtherError error={error} resetErrorBoundary={resetErrorBoundary} />
+    );
   }
 });

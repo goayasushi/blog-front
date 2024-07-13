@@ -4,10 +4,11 @@ import { useNavigate } from "react-router-dom";
 
 type Props = {
   error: Error;
+  resetErrorBoundary: () => void;
 };
 
 export const PageOtherError: FC<Props> = memo((props) => {
-  const { error } = props;
+  const { error, resetErrorBoundary } = props;
   const navigate = useNavigate();
 
   return (
@@ -19,7 +20,13 @@ export const PageOtherError: FC<Props> = memo((props) => {
         <Text fontSize="md" textAlign="center">
           {error.message}
         </Text>
-        <Button colorScheme="teal" onClick={() => navigate("/")}>
+        <Button
+          colorScheme="teal"
+          onClick={() => {
+            resetErrorBoundary();
+            navigate("/");
+          }}
+        >
           トップ画面へ戻る
         </Button>
       </VStack>
