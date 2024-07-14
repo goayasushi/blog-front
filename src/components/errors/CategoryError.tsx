@@ -37,18 +37,15 @@ export const CategoryError: FC<Props> = memo((props) => {
           textAlign="center"
         >
           <AlertIcon />
-
           <AlertTitle>カテゴリーの取得に失敗しました。</AlertTitle>
           <AlertDescription>
             時間を置いて再度お試しください。
             <br />
             {error.message}
           </AlertDescription>
-
           <AlertDescription mt={4}>
             再開するには、以下のボタンをクリックしてください。
           </AlertDescription>
-
           <Button
             mt={4}
             colorScheme="gray"
