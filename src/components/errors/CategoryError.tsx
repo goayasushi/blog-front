@@ -4,11 +4,13 @@ import {
   AlertDescription,
   AlertIcon,
   AlertTitle,
-  Box,
+  Button,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   error: Error;
+  resetErrorBoundary: () => void;
 };
 
 const is4xxrError = (status: number) => {
@@ -16,7 +18,8 @@ const is4xxrError = (status: number) => {
 };
 
 export const CategoryError: FC<Props> = memo((props) => {
-  const { error } = props;
+  const { error, resetErrorBoundary } = props;
+  const navigate = useNavigate();
 
   let statusCode = 0;
   const match = error.message.match(/status: (\d+)/);
@@ -27,16 +30,32 @@ export const CategoryError: FC<Props> = memo((props) => {
   if (is4xxrError(statusCode)) {
     return (
       <>
-        <Alert status="error">
+        <Alert
+          status="error"
+          flexDirection="column"
+          justifyContent="center"
+          textAlign="center"
+        >
           <AlertIcon />
-          <Box>
-            <AlertTitle>カテゴリーの取得に失敗しました。</AlertTitle>
-            <AlertDescription>
-              時間を置いて再度お試しください。
-              <br />
-              {error.message}
-            </AlertDescription>
-          </Box>
+          <AlertTitle>カテゴリーの取得に失敗しました。</AlertTitle>
+          <AlertDescription>
+            時間を置いて再度お試しください。
+            <br />
+            {error.message}
+          </AlertDescription>
+          <AlertDescription mt={4}>
+            再開するには、以下のボタンをクリックしてください。
+          </AlertDescription>
+          <Button
+            mt={4}
+            colorScheme="gray"
+            onClick={() => {
+              resetErrorBoundary();
+              navigate("/");
+            }}
+          >
+            トップ画面へ戻る
+          </Button>
         </Alert>
       </>
     );
