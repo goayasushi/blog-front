@@ -1,10 +1,10 @@
-import { FC, memo, useEffect, useState } from "react";
+import { FC, memo } from "react";
 import { useParams } from "react-router-dom";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 import { Article } from "../../types/article";
 import { client } from "../../libs/client";
-import { Box } from "@chakra-ui/react";
+import { Alert, AlertIcon, Box } from "@chakra-ui/react";
 import { Breadcrumbs } from "../molecules/Breadcrumbs";
 import { ArticleList } from "../organisms/article/ArticleList";
 
@@ -33,7 +33,14 @@ export const CategoryList: FC = memo(() => {
           categoryId={articles[0]?.category.id}
         />
       </Box>
-      <ArticleList articles={articles} baseColumns={1} mdColumns={2} />
+      {articles.length === 0 ? (
+        <Alert status="warning">
+          <AlertIcon />
+          {process.env.REACT_APP_NO_ARTICLE_MESSAGE}
+        </Alert>
+      ) : (
+        <ArticleList articles={articles} baseColumns={1} mdColumns={2} />
+      )}
     </Box>
   );
 });

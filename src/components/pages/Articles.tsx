@@ -1,5 +1,5 @@
 import { FC, memo } from "react";
-import { Box } from "@chakra-ui/react";
+import { Alert, AlertIcon, Box } from "@chakra-ui/react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 import { Article } from "../../types/article";
@@ -23,7 +23,14 @@ export const Articles: FC = memo(() => {
       <Box mb={4}>
         <Breadcrumbs />
       </Box>
-      <ArticleList articles={articles} baseColumns={1} mdColumns={2} />
+      {articles.length === 0 ? (
+        <Alert status="warning">
+          <AlertIcon />
+          {process.env.REACT_APP_NO_ARTICLE_MESSAGE}
+        </Alert>
+      ) : (
+        <ArticleList articles={articles} baseColumns={1} mdColumns={2} />
+      )}
     </Box>
   );
 });
