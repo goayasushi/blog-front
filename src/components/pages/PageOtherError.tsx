@@ -21,7 +21,7 @@ export const PageOtherError: FC<Props> = memo((props) => {
           {error.message}
         </Text>
         <Button
-          colorScheme="teal"
+          colorScheme="gray"
           onClick={() => {
             resetErrorBoundary();
             navigate("/");
