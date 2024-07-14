@@ -18,11 +18,11 @@ export const PageLayout: FC = memo(() => {
           <Box pt="28">
             <SimpleGrid columns={{ base: 1, lg: 3 }} spacing={10} maxW="1200px">
               <GridItem colSpan={{ base: 1, lg: 2 }}>
-                {/* <ErrorBoundary FallbackComponent={ApiError}> */}
-                <Suspense fallback={<Spinner />}>
-                  <Outlet />
-                </Suspense>
-                {/* </ErrorBoundary> */}
+                <ErrorBoundary FallbackComponent={ApiError}>
+                  <Suspense fallback={<Spinner />}>
+                    <Outlet />
+                  </Suspense>
+                </ErrorBoundary>
               </GridItem>
               <GridItem colSpan={1}>
                 <Sidebar />
